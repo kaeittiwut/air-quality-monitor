@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import React, { Component } from 'react';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Home from './containers/Home';
+import About from './containers/About';
+import Station1 from './containers/stations/Station1';
+import Station2 from './containers/stations/Station2';
+import NotFound from './containers/error/NotFound';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  renderRouter() {
+    return (
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/station1" component={Station1} />
+        <Route exact path="/station2" component={Station2} />
+        <Route component={NotFound} />
+      </Switch>
+    );
+  }
+
+  render() {
+    return (
+      <BrowserRouter>
+        <div className="container-fluid">
+          <div className="text-center">
+            <div className="cover-container p-3 mx-auto flex-column">
+              <Header />
+              {this.renderRouter()}
+              <Footer
+                company="Developed with Mind"
+                email="contact@devwithmind.com"
+              />
+            </div>
+          </div>
+        </div>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;

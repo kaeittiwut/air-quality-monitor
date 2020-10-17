@@ -1,0 +1,20 @@
+import React from 'react';
+
+const Footer = (props) => {
+  const { company, email } = props;
+
+  return (
+    <div className="container">
+      <hr />
+      <div className="text-uppercase">
+        <small>
+          <span className="text-danger"> {company} </span>|
+          <span className="text-muted"> {email}</span>
+        </small>
+      </div>
+      <br />
+    </div>
+  );
+};
+
+export default Footer;
