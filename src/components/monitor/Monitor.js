@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
+import Canvas from './Canvas';
 
 class Monitor extends Component {
   render() {
     return (
       <div>
-        <div className="dialog info fadeIn animated">
-          <div className="title1">This is station 1</div>
-        </div>
-        <div
+        {/* <div
           id="chartContainer"
           style={{ height: '370px', width: '50%' }}
-        ></div>
+        ></div> */}
+        <Canvas />
+        <br />
         <div className="dialog info fadeIn animated" id="time">
           <div className="contentDate1">???</div>
           <div className="title">Date</div>
