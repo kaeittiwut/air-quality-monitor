@@ -25,7 +25,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div className="container-fluid">
+        <div className="container">
           <div className="text-center">
             <div className="cover-container p-3 mx-auto flex-column">
               <Header />

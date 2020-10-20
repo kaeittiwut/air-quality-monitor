@@ -9,12 +9,13 @@ class Canvas extends Component {
   componentDidMount() {
     var chart, toOffline;
     var newItems = false;
+    let stations = this.props.station;
 
     $(document).ready(function (e) {
       chart = new CanvasJS.Chart('chartContainer', {
         animationEnabled: true,
         title: {
-          text: 'PM Detector Chart',
+          // text: 'PM Detector Chart',
         },
         axisX: {
           valueFormatString: 'HH:mm',
@@ -84,11 +85,11 @@ class Canvas extends Component {
       });
       chart.render();
 
-      var Sensor = firebase.database().ref().child('Sensor');
+      var Sensor = firebase.database().ref().child(stations);
 
-      Sensor.on('child_added', function (sanp) {
+      Sensor.on('child_added', function (snap) {
         if (!newItems) return;
-        var row = sanp.val();
+        var row = snap.val();
 
         row.time = new Date(row.time);
         chart.options.data[0].dataPoints.push({ x: row.time, y: row.PM10 });
@@ -112,10 +113,10 @@ class Canvas extends Component {
         .startAt(
           now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()
         )
-        .once('value', function (sanp) {
-          //   console.log(sanp);
+        .once('value', function (snap) {
+          //   console.log(snap);
           newItems = true;
-          var dataRows = sanp.val();
+          var dataRows = snap.val();
           var lastRows = 0;
           $.each(dataRows, function (index, row) {
             row.time = new Date(row.time);
@@ -130,13 +131,15 @@ class Canvas extends Component {
           chart.render();
 
           var Arow = lastRows;
+          $('#time > .contentDate1').html(Arow.time);
           $('#PM10 > .content').text(Arow.PM10 + ' µm');
           $('#PM25 > .content').text(Arow.PM25 + ' µm');
           $('#PM100 > .content').text(Arow.PM100 + ' µm');
 
           var now = new Date();
           Arow.time = new Date(Arow.time);
-          if (Math.round(now) - Math.round(Arow.time) < 60 * 60 * 10) {
+          console.log(Math.round(now) - Math.round(Arow.time));
+          if (Math.round(now) - Math.round(Arow.time) < 60 * 60 * 30) {
             $('#status').removeClass('danger').addClass('success');
             $('#status > .content').text('ONLINE');
           } else {
@@ -154,7 +157,7 @@ class Canvas extends Component {
       toOffline = setTimeout(function () {
         $('#status').removeClass('success').addClass('danger');
         $('#status > .content').text('OFFLINE');
-      }, 60 * 60 * 10);
+      }, 60 * 60 * 30);
     };
   }
 

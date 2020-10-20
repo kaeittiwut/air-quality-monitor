@@ -7,10 +7,10 @@ const Footer = (props) => {
     <div className="container-fluid">
       <hr />
       <div className="text-uppercase">
-        <h6>
+        <small>
           <span className="text-danger"> {company} </span>
           <span className="text-muted">| {email}</span>
-        </h6>
+        </small>
       </div>
       <br />
     </div>

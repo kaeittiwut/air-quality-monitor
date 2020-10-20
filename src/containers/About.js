@@ -6,8 +6,8 @@ const About = () => {
     <div>
       <div className="container text-center">
         <p>
-          PM Detector Real Time Dashboard Wireless and Broadband Computer
-          Networks 269430, IOT Application Project
+          PM Detector Real Time Dashboard is part of Wireless and Broadband
+          Computer Networks 269430, IOT Application Term project.
         </p>
 
         <Link
